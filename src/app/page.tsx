@@ -2,9 +2,7 @@
 
 import { useEffect } from "react";
 import { usePromptForge } from "@/hooks/usePromptForge";
-import { BannerAd } from "@/components/layout/BannerAd";
-import { SidebarAd } from "@/components/layout/SidebarAd";
-import { StickyFooterAd } from "@/components/layout/StickyFooterAd";
+import { BannerAd, SidebarAd, StickyFooterAd } from "@/components/layout/BannerAd";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/hero/Hero";
 import { PromptInput } from "@/components/tool/PromptInput";
@@ -37,13 +35,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <BannerAd />
-      
       <main className="flex-1 relative z-10">
         <Hero onCtaClick={scrollToInput} />
         
-        <div className="lg:flex lg:justify-end">
-          <div className="max-w-[960px] mx-auto px-4 md:px-6 pb-16 lg:mx-0 lg:ml-auto lg:w-[calc(100%-340px)]">
+        <BannerAd />
+        
+        <div className="ads-layout">
+          <div className="ads-main">
             {error && (
               <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm">
                 {error}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 declare global {
   interface Window {
@@ -8,41 +8,74 @@ declare global {
   }
 }
 
-export function BannerAd() {
+const AD_CLIENT = "ca-pub-8325432471950221";
+
+interface AdContainerProps {
+  adSlot: string;
+  adFormat?: "auto" | "horizontal" | "vertical" | "rectangle";
+  className?: string;
+}
+
+function AdContainer({ adSlot, adFormat = "auto", className = "" }: AdContainerProps) {
   const adRef = useRef<HTMLModElement>(null);
-  const [mounted, setMounted] = useState(false);
+  const initialized = useRef(false);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (mounted && adRef.current) {
+    if (adRef.current && !initialized.current) {
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
+        initialized.current = true;
       } catch (e) {
-        console.error("Ad error:", e);
+        console.error("AdSense error:", e);
       }
     }
-  }, [mounted]);
-
-  if (!mounted) {
-    return <div className="w-full h-[90px]" />;
-  }
+  }, []);
 
   return (
-    <div className="w-full flex items-center justify-center mt-5 mb-10">
-      <div className="max-w-[970px] w-full mx-auto px-4">
-        <ins
-          ref={adRef}
-          className="adsbygoogle"
-          style={{ display: "block", textAlign: "center" }}
-          data-ad-client="ca-pub-8325432471950221"
-          data-ad-slot="XXXXXXXXXX"
-          data-ad-format="horizontal"
-          data-full-width-responsive="true"
-        />
-      </div>
+    <ins
+      ref={adRef}
+      className={`adsbygoogle ${className}`}
+      style={{ display: "block" }}
+      data-ad-client={AD_CLIENT}
+      data-ad-slot={adSlot}
+      data-ad-format={adFormat}
+      data-full-width-responsive="true"
+    />
+  );
+}
+
+export function BannerAd() {
+  return (
+    <div className="ads-top">
+      <AdContainer 
+        adSlot="9096755497" 
+        adFormat="auto"
+        className="w-full"
+      />
+    </div>
+  );
+}
+
+export function SidebarAd() {
+  return (
+    <div className="ads-sidebar">
+      <AdContainer 
+        adSlot="7141985500" 
+        adFormat="auto"
+        className="w-[300px] h-[600px]"
+      />
+    </div>
+  );
+}
+
+export function StickyFooterAd() {
+  return (
+    <div className="ads-sticky-footer">
+      <AdContainer 
+        adSlot="8079662652" 
+        adFormat="auto"
+        className="w-full"
+      />
     </div>
   );
 }
