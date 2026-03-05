@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-export function BannerAd() {
+export function SidebarAd() {
   const adRef = useRef<HTMLModElement>(null);
   const [mounted, setMounted] = useState(false);
 
@@ -27,22 +27,20 @@ export function BannerAd() {
   }, [mounted]);
 
   if (!mounted) {
-    return <div className="w-full h-[90px]" />;
+    return <div className="hidden lg:block sticky top-[120px] w-[300px] h-[600px]" />;
   }
 
   return (
-    <div className="w-full flex items-center justify-center mt-5 mb-10">
-      <div className="max-w-[970px] w-full mx-auto px-4">
-        <ins
-          ref={adRef}
-          className="adsbygoogle"
-          style={{ display: "block", textAlign: "center" }}
-          data-ad-client="ca-pub-8325432471950221"
-          data-ad-slot="XXXXXXXXXX"
-          data-ad-format="horizontal"
-          data-full-width-responsive="true"
-        />
-      </div>
+    <div className="hidden lg:block sticky top-[120px] w-[300px] h-[600px]">
+      <ins
+        ref={adRef}
+        className="adsbygoogle"
+        style={{ display: "block" }}
+        data-ad-client="ca-pub-8325432471950221"
+        data-ad-slot="XXXXXXXXXX"
+        data-ad-format="vertical"
+        data-full-width-responsive="true"
+      />
     </div>
   );
 }

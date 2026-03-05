@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-export function BannerAd() {
+export function StickyFooterAd() {
   const adRef = useRef<HTMLModElement>(null);
   const [mounted, setMounted] = useState(false);
 
@@ -27,12 +27,12 @@ export function BannerAd() {
   }, [mounted]);
 
   if (!mounted) {
-    return <div className="w-full h-[90px]" />;
+    return null;
   }
 
   return (
-    <div className="w-full flex items-center justify-center mt-5 mb-10">
-      <div className="max-w-[970px] w-full mx-auto px-4">
+    <div className="fixed bottom-0 left-0 w-full h-[90px] bg-[var(--ai-navy-light)] border-t border-[var(--glass-border)] flex items-center justify-center z-50">
+      <div className="max-w-[728px] w-full mx-auto px-4">
         <ins
           ref={adRef}
           className="adsbygoogle"
